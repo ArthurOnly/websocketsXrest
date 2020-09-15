@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Wait...</h1>
+
+    <script>
+      var websocket = new WebSocket("ws://localhost:4444/")
+
+      websocket.onopen = event => {
+        console.log("Open socket")
+      }
+
+      websocket.onmessage = message => {
+        console.log(message)
+      }
+
+      websocket.onerror = () => console.log("Socket error")
+
+      window.setInterval(
+        () => websocket.send(JSON.stringify({ method: "GET" })),
+        1000
+      )
+
+      /*function sendRequest() {
+        fetch("http://127.0.0.1:5000/", {
+          method: "POST",
+          body: JSON.stringify({ method: "POST" }),
+          headers: { "content-type": "application/json" },
+        })
+          .then(res => res.json())
+          .then(json => console.log(json))
+      }
+
+      window.setInterval(() => sendRequest(), 1000)*/
+    </script>
+  </body>
+</html>
